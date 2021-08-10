@@ -23,6 +23,10 @@ public class Logger
         if (!Logger.setup) {
             Logger.outFile = new File("./logs/" + AnsiOut.getStreamDate() + "-" + Logger.logCountToday + ".log");
             correctFileNaming();
+            File logDir = Logger.outFile.getParentFile();
+            if (!logDir.exists()) {
+            	logDir.mkdirs();
+            }
             try {
                 Logger.fos = new FileOutputStream(Logger.outFile);
             }
