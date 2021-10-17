@@ -8,29 +8,28 @@ public class AnsiOut
 {
     private static String streamPrefix;
     private static boolean installed;
-    private static Logger logger;
     private static String r;
     private static String n;
     
     private static SubConsolePrefix scp = null;
     
     static {
-        AnsiOut.streamPrefix = "";
-        AnsiOut.installed = false;
-        AnsiOut.r = "\u001b[0m\u001b[37m";
-        AnsiOut.n = System.getProperty("line.separator");
+        streamPrefix = "";
+        installed = false;
+        r = "\u001b[0m\u001b[37m";
+        n = System.getProperty("line.separator");
     }
     
     public static void initialize() {
-        if (!AnsiOut.installed) {
+        if (!installed) {
             AnsiConsole.systemInstall();
-            setInstalled(true);
+            installed = true;
         }
     }
     
     public static final void println(String ansi) {
-        if (AnsiOut.installed) {
-            if (AnsiOut.streamPrefix != "") {
+        if (installed) {
+            if (streamPrefix != "") {
             	String pref2 = "";
             	if(scp!=null) {
             		String pr = scp.makeSubConsolePrefix();
@@ -40,52 +39,48 @@ public class AnsiOut
             			pref2 = "";
             		}
             	}
-                ansi = String.valueOf(AnsiOut.r) + "[" + getStreamTime() + " INFO]: [" + AnsiOut.streamPrefix + AnsiOut.r + "] " + pref2 + ansi;
+                ansi = r + "[" + getStreamTime() + " INFO]: [" + streamPrefix + r + "] " + pref2 + ansi;
             }
             else {
-                ansi = String.valueOf(AnsiOut.r) + "[" + getStreamTime() + " INFO]: " + ansi;
+                ansi = r + "[" + getStreamTime() + " INFO]: " + ansi;
             }
-            AnsiConsole.out.print("\u001b[0m");
-            AnsiConsole.out.println(ansi);
-            Logger.getStream().println(ansi.replaceAll("\u001b\\[[;\\d]*[ -/]*[@-~]", "").replaceAll("\\n", AnsiOut.n));
+            AnsiConsole.out().print("\u001b[0m");
+            AnsiConsole.out().println(ansi);
+            Logger.getStream().println(ansi.replaceAll("\u001b\\[[;\\d]*[ -/]*[@-~]", "").replaceAll("\\n", n));
         }
     }
     
     public static final void print(final String ansi) {
-        if (AnsiOut.installed) {
-            AnsiConsole.out.print(ansi);
-            Logger.getStream().print(ansi.replaceAll("\u001b\\[[;\\d]*[ -/]*[@-~]", "").replaceAll("\\n", AnsiOut.n));
+        if (installed) {
+            AnsiConsole.out().print(ansi);
+            Logger.getStream().print(ansi.replaceAll("\u001b\\[[;\\d]*[ -/]*[@-~]", "").replaceAll("\\n", n));
         }
     }
     
     public static final void errpl(String ansi) {
-        if (AnsiOut.installed) {
+        if (installed) {
             ansi = "[" + getStreamTime() + " ERROR]: " + ansi;
-            AnsiConsole.err.println(ansi);
-            Logger.getStream().println(ansi.replaceAll("\\n", AnsiOut.n));
+            AnsiConsole.err().println(ansi);
+            Logger.getStream().println(ansi.replaceAll("\\n", n));
         }
     }
     
     public static final void errp(final String ansi) {
-        if (AnsiOut.installed) {
-            AnsiConsole.err.print(ansi);
-            Logger.getStream().print(ansi.replaceAll("\\n", AnsiOut.n));
+        if (installed) {
+            AnsiConsole.err().print(ansi);
+            Logger.getStream().print(ansi.replaceAll("\\n", n));
         }
     }
     
     public static void deintialize() {
-        if (AnsiOut.installed) {
+        if (installed) {
             AnsiConsole.systemUninstall();
-            setInstalled(false);
+            installed = false;
         }
     }
     
     public static boolean isInstalled() {
-        return AnsiOut.installed;
-    }
-    
-    public static void setInstalled(final boolean installed1) {
-        AnsiOut.installed = installed1;
+        return installed;
     }
     
     public static String getStreamTime() {
@@ -101,23 +96,15 @@ public class AnsiOut
     }
     
     public static String getStreamPrefix() {
-        return AnsiOut.streamPrefix;
+        return streamPrefix;
     }
     
     public static void setStreamPrefix(final String streamPrefix1) {
-        AnsiOut.streamPrefix = streamPrefix1;
+        streamPrefix = streamPrefix1;
     }
     
     public static void clearStreamPrefix() {
-        AnsiOut.streamPrefix = "";
-    }
-    
-    public static Logger getLogger() {
-        return AnsiOut.logger;
-    }
-    
-    public static void setLogger(final Logger logger) {
-        AnsiOut.logger = logger;
+        streamPrefix = "";
     }
     
     public static void oneTimeSetSCP(SubConsolePrefix scp1) {

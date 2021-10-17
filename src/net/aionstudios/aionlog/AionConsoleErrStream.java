@@ -1,13 +1,12 @@
 package net.aionstudios.aionlog;
 
-import java.io.OutputStream;
 import org.fusesource.jansi.AnsiConsole;
 import java.io.PrintStream;
 
 public class AionConsoleErrStream extends PrintStream
 {
     public AionConsoleErrStream() {
-        super(AnsiConsole.err, true);
+        super(AnsiConsole.err(), true);
     }
     
     @Override

@@ -1,0 +1,6 @@
+/bin/
+lib/jansi-2.1.0.jar
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.settings/org.eclipse.jdt.core.prefs
+.project
+.classpath
