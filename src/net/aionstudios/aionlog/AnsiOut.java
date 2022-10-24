@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.fusesource.jansi.AnsiConsole;
 
-public class AnsiOut
-{
+public class AnsiOut {
+	
     private static String streamPrefix;
     private static boolean installed;
     private static String r;

@@ -1,13 +1,12 @@
 package net.aionstudios.aionlog;
 
-import java.io.OutputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.FileOutputStream;
 import java.io.File;
 
-public class Logger
-{
+public class Logger {
+	
     private static File outFile;
     private static FileOutputStream fos;
     private static PrintStream stream;
@@ -39,10 +38,9 @@ public class Logger
     }
     
     private static void correctFileNaming() {
-        if (hasFile()) {
+        while (hasFile()) {
             ++Logger.logCountToday;
             Logger.outFile = new File("./logs/" + AnsiOut.getStreamDate() + "-" + Logger.logCountToday + ".log");
-            correctFileNaming();
         }
     }
     
@@ -53,4 +51,5 @@ public class Logger
     public static boolean hasFile() {
         return Logger.outFile.exists();
     }
+    
 }

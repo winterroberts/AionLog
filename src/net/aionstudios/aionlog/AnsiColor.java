@@ -1,7 +1,7 @@
 package net.aionstudios.aionlog;
 
-public class AnsiColor
-{
+public class AnsiColor {
+	
     public static final String RESET = "\u001b[0m";
     public static final String BLACK = "\u001b[30m";
     public static final String RED = "\u001b[31m";
@@ -11,4 +11,5 @@ public class AnsiColor
     public static final String PURPLE = "\u001b[35m";
     public static final String CYAN = "\u001b[36m";
     public static final String WHITE = "\u001b[37m";
+    
 }

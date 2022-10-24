@@ -1,7 +1,8 @@
 package net.aionstudios.aionlog;
 
-public class StandardOverride
-{
+
+public class StandardOverride {
+	
     private static AionConsoleStream serverStream;
     private static AionConsoleErrStream serverErrStream;
     
@@ -11,4 +12,5 @@ public class StandardOverride
         System.setOut(serverStream);
         System.setErr(serverErrStream);
     }
+    
 }
