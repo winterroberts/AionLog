@@ -1,0 +1,59 @@
+package net.winrob.aionlog;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.io.FileOutputStream;
+import java.io.File;
+
+public class Logger {
+	
+    private static File outFile;
+    private static FileOutputStream fos;
+    private static PrintStream stream;
+    private static int logCountToday;
+    private static boolean setup;
+    
+    static {
+        Logger.logCountToday = 1;
+        Logger.setup = false;
+    }
+    
+    public static void setup() {
+        if (!Logger.setup) {
+            Logger.outFile = new File("./logs/" + AnsiOut.getStreamDate() + "-" + Logger.logCountToday + ".log");
+            correctFileNaming();
+            File logDir = Logger.outFile.getParentFile();
+            if (!logDir.exists()) {
+            	logDir.mkdirs();
+            }
+            try {
+                Logger.fos = new FileOutputStream(Logger.outFile);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Logger.stream = new PrintStream(Logger.fos);
+            Logger.setup = true;
+        }
+    }
+    
+    public static boolean isSetup() {
+    	return setup;
+    }
+    
+    private static void correctFileNaming() {
+        while (hasFile()) {
+            ++Logger.logCountToday;
+            Logger.outFile = new File("./logs/" + AnsiOut.getStreamDate() + "-" + Logger.logCountToday + ".log");
+        }
+    }
+    
+    public static PrintStream getStream() {
+        return Logger.stream;
+    }
+    
+    public static boolean hasFile() {
+        return Logger.outFile.exists();
+    }
+    
+}
